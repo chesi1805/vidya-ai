@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    container_name: vidya-backend
+    ports:
+      - "4001:4001"
+    environment:
+      PORT: 4001
+      CLIENT_ORIGIN: "http://localhost:5174"
+
+      # Authentication
+      JWT_SECRET: ${JWT_SECRET:-dev-secret-change-me}
+
+      # Groq API
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GROQ_MODEL: ${GROQ_MODEL:-llama-3.3-70b-versatile}
+
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: "http://localhost:4001/api"
+
+    container_name: vidya-frontend
+
+    ports:
+      - "5174:80"
+
+    depends_on:
+      - backend
+
+    restart: unless-stopped
