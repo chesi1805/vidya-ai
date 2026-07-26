@@ -17,7 +17,11 @@ console.log("CLIENT_ORIGIN:", config.clientOrigin);
 // Allow both Vite development ports
 app.use(
     cors({
-        origin: ["http://localhost:5173", "http://localhost:5174"],
+        origin: [
+            "http://localhost:5173",
+            "http://localhost:5174",
+            config.clientOrigin,
+        ],
         credentials: true,
     })
 );
