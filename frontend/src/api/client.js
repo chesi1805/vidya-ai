@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4001/api";
+const API_URL = "https://vidya-ai-1-eaim.onrender.com/api";
 
 function getToken() {
     return localStorage.getItem("vidya_token");
